@@ -9,7 +9,7 @@ self.addEventListener('install', event => {
     event.waitUntil(
         caches.open('file-cache-v1')
             .then(cache => cache.addAll([
-                // Add files to cache here
+                /
             ]))
     );
 });
