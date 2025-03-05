@@ -1,0 +1,213 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #002365;
+    color: white;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+/* Sidebar container styling */
+.sidebar {
+    background-color: #eaeaea; /* Light gray background */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center contents horizontally */
+    justify-content: flex-start; /* Align contents to the top */
+    text-align: center; /* Center text */
+    padding: 15px; /* Consistent padding */
+    border-radius: 10px; /* Rounded edges */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for depth */
+}
+
+/* Profile section styling */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center profile picture and button */
+    margin-bottom: 20px; /* Space below profile section */
+    width: 100%; /* Full width */
+}
+
+.profile-pic {
+    width: 80px; /* Fixed size for profile picture */
+    height: 80px;
+    background-color: #ccc;
+    border-radius: 50%; /* Circular profile picture */
+    margin-bottom: 10px; /* Space below profile picture */
+}
+
+.view-profile {
+    background-color: #002365; /* Dark blue button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px; /* Rounded button */
+    cursor: pointer;
+}
+
+/* Info section styling */
+.info-section {
+    background-color: #ffffff; /* White background */
+    width: 100%; /* Full width */
+    padding: 15px; /* Consistent padding */
+    margin-bottom: 20px; /* Space below info section */
+    border-radius: 10px; /* Rounded edges */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for depth */
+}
+
+.info-section p {
+    margin: 10px 0; /* Consistent spacing between paragraphs */
+}
+
+/* Menu section styling */
+.menu-section {
+    width: 100%; /* Full width */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center buttons */
+    border-radius: 10px; /* Rounded edges */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for depth */
+}
+
+.menu-button {
+    width: 100%; /* Full width buttons */
+    margin: 5px 0; /* Consistent spacing between buttons */
+    padding: 10px;
+    background-color: #002365; /* Dark blue buttons */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Rounded buttons */
+    cursor: pointer;
+}
+
+.menu-button:hover {
+    background-color: #001a4d; /* Darker shade on hover */
+}
+
+main {
+    flex-grow: 1;
+    padding: 20px;
+    text-align: center;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab {
+    margin: 0 10px;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.tab.active {
+    background-color: #002365;
+    color: white;
+}
+
+.video-set {
+    margin: 20px 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #002365;
+    color: #fff;
+}
+
+.btn:hover {
+    background-color: #002365;
+}
+
+.btn button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: #fff;
+}
+/* Video lesson set styling */
+.video-set {
+    background-color: #F7C80E; /* Yellow background */
+    border-radius: 10px; /* Rounded edges */
+    padding: 15px; /* Consistent padding */
+    margin: 20px 0; /* Consistent margin for spacing */
+    width: 100%; /* Full width */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for depth */
+    box-sizing: border-box; /* Ensure padding is included in width/height */
+}
+
+.video-set h2 {
+    color: #002365; /* Dark blue text for contrast */
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.video-set .button-container {
+    display: flex;
+    justify-content: space-between; /* Evenly space buttons */
+    gap: 10px; /* Space between buttons */
+}
+
+.video-set button {
+    flex: 1; /* Equal width buttons */
+    padding: 10px;
+    background-color: #002365; /* Dark blue buttons */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Rounded buttons */
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box; /* Ensure padding is included in width/height */
+}
+
+.video-set button:hover {
+    background-color: #001a4d; /* Darker shade on hover */
+}
+
+/* Ensure the "PR 2" button is the same size as others */
+.video-set a.btn {
+    flex: 1; /* Equal width */
+    text-decoration: none; /* Remove underline */
+    display: block; /* Ensure it behaves like a block element */
+    box-sizing: border-box; /* Ensure padding is included in width/height */
+}
+
+.video-set a.btn button {
+    width: 100%; /* Full width */
+    padding: 10px;
+    background-color: #002365; /* Dark blue button */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Rounded button */
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box; /* Ensure padding is included in width/height */
+}
+
+.video-set a.btn button:hover {
+    background-color: #001a4d; /* Darker shade on hover */
+}

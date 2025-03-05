@@ -1,0 +1,182 @@
+.form-horizontal .form-icon {
+    background-color: #002365 !important;
+}
+
+.login-heading, .school-name, .label-text, .forgot a {
+    color: #F7C80E !important;
+}
+
+.login-heading {
+    border-color: #002365 !important;
+}
+
+.login_form {
+    background-color: transparent;
+}
+
+.form-container {
+ font-family: 'Inter', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-align: center;
+    width: 50%; /* Adjust width as needed */
+    min-height: 565px; /* Minimum height */
+    padding-left: 10%;
+    padding-right: 5%;
+    background-color: rgba(255, 255, 255, 0.8); /* Optional: Add a background color for contrast */
+    border-radius: 8px; /* Optional: Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: Shadow for depth */
+}
+
+body {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove default margin */
+    background-image: url(https://s3.ap-southeast-1.amazonaws.com/assets.bes.edu.ph/school_content/landing/background.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    width: 100%;
+}
+
+.login_position {
+    margin-top: 200px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 100px; /* Space between items */
+    justify-content: space-between; /* Align items */
+}
+
+.flex_item--50 { 
+    flex: 0 0 calc(50% - 50px); /* Adjusted for spacing */
+    box-sizing: border-box;
+    max-width: calc(50% - 50px); /* Adjusted for spacing */
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+}
+
+.flex_item--50.item-right {
+    display: flex;
+    flex-direction: column; /* Stack images vertically */
+    align-items: center; /* Center images */
+}
+
+.container {
+    width: 100%;
+    height: unset;
+}
+
+.landing-logo {
+    height: 325px;
+}
+
+.landing-tagline.desktop {
+    width: -webkit-fill-available;
+    max-width: 80%;
+}
+
+.landing-tagline.mobile {
+    display: none;
+}
+
+/* .tagline-container ruleset removed as it was empty */
+
+.landing-text {
+    width: -webkit-fill-available;
+    max-width: 70%;
+}
+
+.label-text {
+    font-size: 15px;
+}
+
+.core-values {
+    max-width: 45%;
+}
+
+.container-input {
+    background-color: rgba(128, 128, 128, 0.5); /* Semi-transparent gray */
+    border-radius: 8px; /* Smaller rounded corners */
+    padding: 6px; /* Further reduced padding for a smaller box */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    width: 100%; /* Make the container full width */
+}
+
+.container-input input {
+    width: 100%; /* Make the input field take the full width of the container */
+    border: none; /* Remove border */
+    background: transparent; /* Make background transparent */
+    padding: 6px; /* Padding for the input */
+    font-size: 16px; /* Font size for the input */
+}
+
+.input-icon {
+    display: flex;
+    align-items: center; /* Align icon and input vertically */
+}
+
+.input-icon i {
+    margin-right: 8px; /* Space between icon and input */
+}
+
+.text-danger {
+    color: red; /* Error message color */
+    display: block; /* Ensure it takes up space */
+    text-align: left; /* Align text to the left */
+    margin-top: 5px; /* Space above the error message */
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between; /* Space between buttons */
+    margin-top: 15px; /* Space above the buttons */
+}
+
+.continue-offline {
+    color: #F7C80E; /* Yellow text */
+    font-weight: bold; /* Bold text */
+    text-decoration: underline; /* Underline text */
+    background-color: transparent; /* No background */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.continue-offline:hover {
+    color: #e6b800; /* Darker yellow on */
+} 
+
+.forgot-password {
+    color: #F7C80E; /* Yellow text */
+    font-weight: bold; /* Bold text */
+    background-color: transparent; /* No background */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.forgot-password:hover {
+    color: #e6b800; /* Darker yellow on hover */
+}
+
+.login-button {
+    margin-top: 15px; /* Space above the login button */
+}
+
+.signin {
+    background-color: #310ef7; /* Yellow background */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-weight: bold; /* Bold text */
+    text-transform: uppercase; /* Uppercase text */
+    color: #d2dd31; /* White text */
+    border-radius: 5px; /* Rounded corners */
+}

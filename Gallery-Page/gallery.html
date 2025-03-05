@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Gallery</title>
+    <style>
+        #fileContainer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .file-thumbnail {
+            width: 400px;
+            height: 300px; /* Increased height to fit video and button */
+            overflow: hidden;
+            position: relative;
+            text-align: center; /* Center-align content */
+            border: 1px solid #ccc; /* Optional: Border for better visibility */
+            border-radius: 5px; /* Optional: Rounded corners */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: Box shadow for better appearance */
+        }
+        h1, button {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        body {
+            background-image: url('Images/background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        video {
+            width: 100%;
+            height: 250px; /* Set video height */
+        }
+        button {
+            margin-top: 5px; /* Spacing between video and button */
+            width: 80%; /* Make button full width */
+            padding: 5px; /* Padding for button */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            background-color: #007bff; /* Button color */
+            color: white; /* Button text color */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 14px; /* Font size */
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker color on hover */
+        }
+        #backButton {
+            width: 85%;
+            margin-bottom: 20px; /* Spacing below back button */
+            padding: 10px; /* Padding for the back button */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            background-color: #28a745; /* Green button color */
+            color: white; /* Button text color */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 14px; /* Font size */
+        }
+        #backButton:hover {
+            background-color: #218838; /* Darker color on hover */
+        }
+        #logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button id="backButton" onclick="goBack()">Back</button>
+    <img id="logo" src="Images/logo2.png" alt="Logo">
+    <h1>Video Gallery</h1>
+    <div id="fileContainer"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+        import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-storage.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBTwxsoj7-kvOL9xTjAQ6TRsg02Dq3QfEo",
+            authDomain: "is-b31a6.firebaseapp.com",
+            projectId: "is-b31a6",
+            storageBucket: "is-b31a6.firebasestorage.app",
+            messagingSenderId: "220488523420",
+            appId: "1:220488523420:web:3d2391e1d57c7a9db39759",
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const firestore = getFirestore(app);
+        const storage = getStorage(app);
+
+        async function displayFiles() {
+            try {
+                const container = document.getElementById('fileContainer');
+                container.innerHTML = ''; // Clear previous files
+
+                const fileCollection = collection(firestore, 'Offline Files');
+                const fileSnapshot = await getDocs(fileCollection);
+
+                if (fileSnapshot.empty) {
+                    console.log('No files found in Firestore.');
+                    const noFilesMessage = document.createElement('p');
+                    noFilesMessage.innerText = 'No files available.';
+                    container.appendChild(noFilesMessage);
+                    return;
+                }
+
+                for (const doc of fileSnapshot.docs) {
+                    const fileData = doc.data();
+                    const fileURL = fileData.url;
+
+                    if (!fileURL) {
+                        console.log('File URL is undefined.');
+                        continue;
+                    }
+
+                    let fileTypeDetected;
+                    const url = new URL(fileURL);
+                    const filePath = url.pathname;
+                    const fileExtension = filePath.split('/').pop().split('.').pop();
+
+                    if (['mp4', 'mov', 'webm', 'ogg', 'avi'].includes(fileExtension)) {
+                        fileTypeDetected = 'video';
+                    } else if (['pdf', 'docx', 'pptx', 'xlsx'].includes(fileExtension)) {
+                        fileTypeDetected = 'pdf';
+                    } else {
+                        console.log(`Unknown file type: ${fileURL}`);
+                        continue;
+                    }
+
+                    // Create file element
+                    let fileElement;
+                    if (fileTypeDetected === 'video') {
+                        fileElement = document.createElement('video');
+                        fileElement.setAttribute('controls', true);
+                        const sourceElement = document.createElement('source');
+                        const fileExtension = filePath.split('/').pop().split('.').pop();
+                        let mimeType;
+                        if (fileExtension === 'mp4') {
+                            mimeType = 'video/mp4';
+                        } else if (fileExtension === 'mov') {
+                            mimeType = 'video/quicktime';
+                        } else if (fileExtension === 'webm') {
+                            mimeType = 'video/webm';
+                        } else if (fileExtension === 'ogg') {
+                            mimeType = 'video/ogg';
+                        } else if (fileExtension === 'avi') {
+                            mimeType = 'video/x-msvideo';
+                        }
+                        sourceElement.src = fileURL;
+                        sourceElement.type = mimeType;
+                        fileElement.appendChild(sourceElement);
+                    } else if (fileTypeDetected === 'pdf') {
+                        fileElement = document.createElement('iframe');
+                        fileElement.src = fileURL;
+                        fileElement.type = 'pdf';
+                        fileElement.width = '100%';
+                        fileElement.height = '250';
+                    } else {
+                        fileElement = document.createElement('div');
+                        fileElement.innerText = `Unsupported file type: ${fileTypeDetected}`;
+                    }
+
+                    // Create cache button
+                    const cacheButton = document.createElement('button');
+                    cacheButton.innerText = 'Save as Offline';
+                    cacheButton.onclick = async () => {
+                        try {
+                            if (navigator.serviceWorker.controller) {
+                                navigator.serviceWorker.controller.postMessage({
+                                    type: 'CACHE_FILE',
+                                    url: fileURL
+                                });
+                            } else {
+                                console.log('Service worker is not yet registered or active');
+                            }
+                        } catch (error) {
+                            console.error(`Error caching file: ${error}`);
+                        }
+                    };
+
+                    // Create thumbnail container
+                    const thumbnailContainer = document.createElement('div');
+                    thumbnailContainer.className = 'file-thumbnail';
+                    thumbnailContainer.appendChild(fileElement);
+                    thumbnailContainer.appendChild(cacheButton);
+
+                    // Append to the main container
+                    container.appendChild(thumbnailContainer);
+                }
+            } catch (error) {
+                console.error('Error fetching files:', error);
+            }
+        }
+
+        displayFiles();
+
+        // Function to go back to the previous page
+        window.goBack = function() {
+            window.history.back(); // Go back to the previous page
+        }
+
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(registration => console.log('Service worker registered:', registration))
+                .catch(error => console.error('Error registering service worker:', error));
+        }
+    </script>
+</body>
+</html>

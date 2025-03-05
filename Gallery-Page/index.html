@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline Gallery using Firebase</title>
+  <style>
+    #progressContainer {
+      display: none; /* Hidden until upload starts */
+      margin-top: 20px;
+    }
+    #progressBar {
+      width: 100%;
+      height: 20px;
+    }
+    h1, label, span, button, input {
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    button{
+      cursor: pointer; /* Change cursor to pointer on hover */
+      background-color: #007bff; /* Button color */
+      color: white; /* Button text color */
+      border: none; /* Remove border */
+      border-radius: 5px; /* Rounded corners */
+      font-size: 14px; /* Font size */
+    }
+    button:hover{
+      background-color: #0056b3; /* Darker color on hover */
+    }
+  </style>
+</head>
+<body>
+  <h1>Upload File to Firebase Storage</h1>
+  <input type="file" id="fileInput" />
+  <button id="uploadButton">Upload</button>
+  <button id="galleryButton" onclick="goToGallery()">Gallery</button>
+
+  <!-- Progress Bar Section -->
+  <div id="progressContainer">
+    <label for="progressBar">Upload Progress: </label>
+    <progress id="progressBar" value="0" max="100"></progress>
+    <span id="progressLabel">0%</span>
+  </div>
+
+  <!-- File Container -->
+  <div id="fileContainer"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+        import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-storage.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBTwxsoj7-kvOL9xTjAQ6TRsg02Dq3QfEo",
+            authDomain: "is-b31a6.firebaseapp.com",
+            projectId: "is-b31a6",
+            storageBucket: "is-b31a6.firebasestorage.app",
+            messagingSenderId: "220488523420",
+            appId: "1:220488523420:web:3d2391e1d57c7a9db39759",
+        };
+
+         // Initialize Firebase
+         const app = initializeApp(firebaseConfig);
+        const storage = getStorage(app);
+        const firestore = getFirestore(app);
+
+        alert('Firebase configuration initialized.');
+
+        document.getElementById('uploadButton').addEventListener('click', () => {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0]; // Get the selected file
+
+            if (file) {
+                // Create a storage reference for the file
+                const storageRef = ref(storage, 'Offline Files/' + file.name); // 'videos/' folder in Firebase Storage
+
+                // Show progress bar
+                const progressContainer = document.getElementById('progressContainer');
+                progressContainer.style.display = 'block';
+
+                // Upload the file
+                const uploadTask = uploadBytesResumable(storageRef, file);
+
+                // Monitor the upload progress
+                uploadTask.on('state_changed',
+                    (snapshot) => {
+                        // Calculate the upload progress
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log('Upload is ' + progress + '% done');
+
+                        // Update progress bar and label
+                        document.getElementById('progressBar').value = progress;
+                        document.getElementById('progressLabel').innerText = progress.toFixed(0) + '%';
+                    },
+                    (error) => {
+                        // Handle errors during upload
+                        console.error('Upload failed:', error);
+                        alert('Upload failed: ' + error);
+                    },
+                    () => {
+                        // Get the download URL after a successful upload
+                        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+                        console.log('File available at:', downloadURL);
+                        alert('File uploaded successfully! Download URL: ' + downloadURL);
+
+                        // Save the download URL to Firestore
+                    try {
+                        await addDoc(collection(firestore, 'Offline Files'), {
+                            url: downloadURL,
+                            filename: file.name,
+                            filetype: file.type,
+                            uploadedAt: new Date().toISOString()
+                        });
+                        console.log('File URL saved to Firestore!');
+                        alert('File URL saved to Firestore!');
+                    } catch (error) {
+                        console.error('Error saving file URL to Firestore:', error);
+                        alert('Error saving file URL to Firestore: ' + error);
+                    }
+
+                    // Hide progress bar after upload
+                    progressContainer.style.display = 'none';
+
+                    // Refresh the page
+                    location.reload()
+                });
+                    }
+                );
+            } else {
+                alert('No file selected!');
+            }
+        });
+
+        // Function to go to the gallery page
+        window.goToGallery = function() {
+            window.location.href = 'gallery.html'; // Redirect to gallery.html
+        };
+    </script>
+</body>
+</html>
