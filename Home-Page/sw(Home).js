@@ -1,7 +1,6 @@
 const CACHE_NAME = 'home-page-cache-v1';
 const urlsToCache = [
-    '/',
-    '/index.html', // Login Page
+    '/'
     '/Home-Page/index-2.html', // Home Page
     '/style.css',   // CSS file
     '/app.js',      // JavaScript file for service worker registration
