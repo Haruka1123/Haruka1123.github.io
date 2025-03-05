@@ -9,7 +9,10 @@ self.addEventListener('install', event => {
     event.waitUntil(
         caches.open('file-cache-v1')
             .then(cache => cache.addAll([
-                /
+                '/index.html',
+                '/gallery.html',
+                'Images/background.png',
+                'Images/logo2',
             ]))
     );
 });
