@@ -2,7 +2,7 @@ const CACHE_NAME = 'login-page-cache-v1';
 const urlsToCache = [
     '/index.html', // Login Page
     '/style.css',   // CSS file
-    '/app.js',      // JavaScript file for service worker registration
+    '/script.js',      // JavaScript file for service worker registration
     'Images/logo.png', // School logo
     'Images/address.png', // Address image
     'Images/lead_logo.png', // Landing logo
