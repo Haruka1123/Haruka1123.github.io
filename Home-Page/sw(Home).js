@@ -1,9 +1,9 @@
 const CACHE_NAME = 'home-page-cache-v1';
 const urlsToCache = [
     '/'
-    '/Home-Page/index-2.html', // Home Page
-    '/style.css',   // CSS file
-    '/app.js',      // JavaScript file for service worker registration
+    '/index-2.html', // Home Page
+    '/styles(Home).css',   // CSS file
+    '/app(Home).js',      // JavaScript file for service worker registration
     // Add any other assets you want to cache (images, etc.)
 ];
 
