@@ -116,6 +116,7 @@ main {
     padding: 10px;
     background-color: #f4f4f4;
     border: 1px solid #ccc;
+    border-radius: 10px; /* Rounded Edges */
     cursor: pointer;
 }
 
