@@ -4,6 +4,7 @@ const urlsToCache = [
     'Home-Page/index-2.html', // Home Page
     'Home-Page/styles(Home).css',   // CSS file
     'Home-Page/script(Home).js',      // JavaScript file for service worker registration
+    'Image/logo.png',
     // Add any other assets you want to cache (images, etc.)
 ];
 
